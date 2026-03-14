@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <title>Laboratorio Virtual - Dinámica de Fluidos</title>
@@ -35,19 +36,24 @@ button{
 background:#1e3799;
 color:white;
 border:none;
-padding:10px 15px;
+padding:10px;
 border-radius:5px;
 cursor:pointer;
-margin-top:10px;
-}
-
-button:hover{
-background:#0c2461;
 }
 
 input{
 padding:5px;
 margin:5px;
+}
+
+.slider{
+width:250px;
+}
+
+.result{
+font-weight:bold;
+color:#b71540;
+margin-top:10px;
 }
 
 table{
@@ -62,40 +68,39 @@ padding:8px;
 text-align:center;
 }
 
-.result{
-font-weight:bold;
-color:#b71540;
-margin-top:10px;
-}
-
-.slider{
-width:200px;
-}
-
 </style>
 </head>
+
 
 <body>
 
 <header>
-<h1>Dinámica de Fluidos</h1>
-<p>Laboratorio virtual interactivo</p>
+<h1>Laboratorio Virtual de Dinámica de Fluidos</h1>
+<p>Simulación interactiva de Reynolds, Poiseuille y Stokes</p>
 </header>
 
-<section>
-<h2>Introducción</h2>
-<p>
-Este recurso académico presenta los conceptos fundamentales de dinámica de fluidos:
-viscosidad, número de Reynolds, ley de Poiseuille y sedimentación de Stokes.
-</p>
-</section>
 
 <section>
+
+<h2>Introducción</h2>
+
+<p>
+Este recurso académico presenta algunos conceptos fundamentales de la dinámica de fluidos.
+El objetivo es analizar cómo variables físicas como el radio de un tubo o el tamaño de una partícula
+influyen en fenómenos como el caudal de un fluido o la velocidad de sedimentación.
+</p>
+
+</section>
+
+
+<section>
+
 <h2>Viscosidad</h2>
 
 <p>La viscosidad mide la resistencia de un fluido al movimiento.</p>
 
 <p><b>Ecuación:</b></p>
+
 <p>τ = μ (du/dy)</p>
 
 <table>
@@ -128,105 +133,28 @@ viscosidad, número de Reynolds, ley de Poiseuille y sedimentación de Stokes.
 
 </section>
 
-<section>
-<h2>Número de Reynolds</h2>
 
-<p>Permite clasificar el tipo de flujo de un fluido.</p>
+<section>
+
+<h2>Número de Reynolds</h2>
 
 <p>Re = ρVD / μ</p>
 
 <ul>
 <li>Re &lt; 2000 → Flujo laminar</li>
-<li>2000 - 4000 → Transición</li>
+<li>2000 – 4000 → Transición</li>
 <li>Re &gt; 4000 → Turbulento</li>
 </ul>
 
-</section>
+<h3>Calculadora interactiva</h3>
 
-<section>
+ρ <input id="rho" type="number">
 
-<h2>Ley de Poiseuille</h2>
+V <input id="vel" type="number">
 
-<p>Describe el flujo laminar en tuberías.</p>
+D <input id="diam" type="number">
 
-<p>Q = (π R⁴ ΔP) / (8 μ L)</p>
-
-</section>
-
-<section>
-
-<h2>Ley de Stokes</h2>
-
-<p>Describe la velocidad terminal de una partícula en un fluido.</p>
-
-<p>Vt = (2 g r² (ρp − ρf)) / (9 μ)</p>
-
-</section>
-
-<section>
-
-<h2>Ejercicio Resuelto 1 (Reynolds)</h2>
-
-<ul>
-<li>ρ = 900 kg/m³</li>
-<li>V = 1.5 m/s</li>
-<li>D = 0.02 m</li>
-<li>μ = 0.05 Pa·s</li>
-</ul>
-
-<p>Re = (ρVD)/μ</p>
-
-<p class="result">Re = 540 → Flujo laminar</p>
-
-</section>
-
-<section>
-
-<h2>Ejercicio Resuelto 2 (Poiseuille)</h2>
-
-<ul>
-<li>L = 50 m</li>
-<li>R = 0.01 m</li>
-<li>μ = 0.2 Pa·s</li>
-<li>Q = 0.001 m³/s</li>
-</ul>
-
-<p>ΔP = (8 μ L Q) / (π R⁴)</p>
-
-<p class="result">ΔP ≈ 2.5 × 10⁶ Pa</p>
-
-</section>
-
-<section>
-
-<h2>Ejercicio Resuelto 3 (Stokes)</h2>
-
-<ul>
-<li>ρp = 2650 kg/m³</li>
-<li>ρf = 1000 kg/m³</li>
-<li>d = 50 μm</li>
-<li>μ = 0.001 Pa·s</li>
-</ul>
-
-<p class="result">Velocidad terminal ≈ 0.0022 m/s</p>
-
-</section>
-
-<section>
-
-<h2>Calculadora Interactiva: Reynolds</h2>
-
-<label>Densidad (ρ)</label>
-<input id="rho" type="number">
-
-<label>Velocidad (V)</label>
-<input id="vel" type="number">
-
-<label>Diámetro (D)</label>
-<input id="diam" type="number">
-
-<label>Viscosidad (μ)</label>
-<input id="vis" type="number">
+μ <input id="vis" type="number">
 
 <br>
 
@@ -236,101 +164,159 @@ viscosidad, número de Reynolds, ley de Poiseuille y sedimentación de Stokes.
 
 </section>
 
+
 <section>
 
-<h2>Laboratorio Virtual Poiseuille</h2>
+<h2>Ley de Poiseuille</h2>
 
-<label>Radio del tubo (m)</label><br>
+<p>Q = (πR⁴ΔP) / (8μL)</p>
 
-<input type="range" class="slider" id="radio" min="0.005" max="0.02" step="0.001">
+<p><b>Radio del tubo</b></p>
 
-<br>
+<input
+type="range"
+id="radio"
+class="slider"
+min="0.005"
+max="0.02"
+step="0.001"
+value="0.005"
+oninput="actualizarPoiseuille(this.value)"
+>
 
-<button onclick="calcQ()">Calcular Caudal</button>
+<p>Radio seleccionado: <span id="valorRadio">0.005</span> m</p>
 
 <p id="resultadoQ" class="result"></p>
 
 </section>
 
+
 <section>
 
-<h2>Laboratorio Virtual Stokes</h2>
+<h2>Ley de Stokes</h2>
 
-<label>Radio de la partícula (m)</label><br>
+<p>Vt = (2 g r² (ρp − ρf)) / (9 μ)</p>
 
-<input type="range" class="slider" id="r" min="0.00001" max="0.0001" step="0.00001">
+<p><b>Radio de la partícula</b></p>
 
-<br>
+<input
+type="range"
+id="r"
+class="slider"
+min="0.00001"
+max="0.0001"
+step="0.00001"
+value="0.00001"
+oninput="actualizarStokes(this.value)"
+>
 
-<button onclick="calcV()">Calcular velocidad</button>
+<p>Radio seleccionado: <span id="valorParticula">0.00001</span> m</p>
 
 <p id="resultadoV" class="result"></p>
 
 </section>
 
+
 <section>
 
-<h2>Reproducibilidad</h2>
+<h2>Ejercicios Resueltos</h2>
 
-<p>Herramientas utilizadas:</p>
+<h3>Ejercicio 1 (Reynolds)</h3>
 
 <ul>
-<li>HTML</li>
-<li>CSS</li>
-<li>JavaScript</li>
+<li>ρ = 900 kg/m³</li>
+<li>V = 1.5 m/s</li>
+<li>D = 0.02 m</li>
+<li>μ = 0.05 Pa·s</li>
 </ul>
 
-<p>Este recurso fue generado con asistencia de inteligencia artificial y revisado manualmente.</p>
+<p class="result">Re = 540 → Flujo laminar</p>
+
+<h3>Ejercicio 2 (Poiseuille)</h3>
+
+<p class="result">ΔP ≈ 2.5 × 10⁶ Pa</p>
+
+<h3>Ejercicio 3 (Stokes)</h3>
+
+<p class="result">Velocidad terminal ≈ 0.0022 m/s</p>
 
 </section>
+
+
+<section>
+
+<h2>Uso de las barras deslizantes</h2>
+
+<p>
+Las barras deslizantes permiten modificar parámetros físicos del sistema de forma interactiva.
+Al mover la barra se cambia el valor de una variable, como el radio del tubo o el tamaño de una partícula,
+y el programa recalcula automáticamente el resultado utilizando las ecuaciones de la dinámica de fluidos.
+</p>
+
+<p>
+Este tipo de herramientas permite explorar cómo influyen las variables físicas en los fenómenos del flujo
+sin necesidad de realizar un experimento real en laboratorio.
+</p>
+
+</section>
+
+
 
 <script>
 
 function calcRe(){
 
-let rho=parseFloat(document.getElementById("rho").value);
-let v=parseFloat(document.getElementById("vel").value);
-let d=parseFloat(document.getElementById("diam").value);
-let mu=parseFloat(document.getElementById("vis").value);
+let rho=parseFloat(document.getElementById("rho").value)
+let v=parseFloat(document.getElementById("vel").value)
+let d=parseFloat(document.getElementById("diam").value)
+let mu=parseFloat(document.getElementById("vis").value)
 
-let Re=(rho*v*d)/mu;
+let Re=(rho*v*d)/mu
 
-let tipo="";
+let tipo=""
 
-if(Re<2000){tipo="Flujo laminar";}
-else if(Re<4000){tipo="Transición";}
-else{tipo="Flujo turbulento";}
+if(Re<2000) tipo="Flujo laminar"
+else if(Re<4000) tipo="Transición"
+else tipo="Flujo turbulento"
 
-document.getElementById("resultadoRe").innerHTML="Re = "+Re.toFixed(2)+" → "+tipo;
-
-}
-
-function calcQ(){
-
-let r=parseFloat(document.getElementById("radio").value);
-
-let mu=0.2;
-let L=50;
-let dp=1000;
-
-let Q=(Math.PI*Math.pow(r,4)*dp)/(8*mu*L);
-
-document.getElementById("resultadoQ").innerHTML="Caudal = "+Q.toFixed(6)+" m³/s";
+document.getElementById("resultadoRe").innerHTML="Re = "+Re.toFixed(2)+" → "+tipo
 
 }
 
-function calcV(){
 
-let r=parseFloat(document.getElementById("r").value);
+function actualizarPoiseuille(valor){
 
-let g=9.81;
-let rhoP=2650;
-let rhoF=1000;
-let mu=0.001;
+document.getElementById("valorRadio").innerHTML=valor
 
-let vt=(2*g*r*r*(rhoP-rhoF))/(9*mu);
+let r=parseFloat(valor)
 
-document.getElementById("resultadoV").innerHTML="Vt = "+vt.toFixed(4)+" m/s";
+let mu=0.2
+let L=50
+let dp=1000
+
+let Q=(Math.PI*Math.pow(r,4)*dp)/(8*mu*L)
+
+document.getElementById("resultadoQ").innerHTML=
+"Caudal calculado: "+Q.toFixed(6)+" m³/s"
+
+}
+
+
+function actualizarStokes(valor){
+
+document.getElementById("valorParticula").innerHTML=valor
+
+let r=parseFloat(valor)
+
+let g=9.81
+let rhoP=2650
+let rhoF=1000
+let mu=0.001
+
+let vt=(2*g*r*r*(rhoP-rhoF))/(9*mu)
+
+document.getElementById("resultadoV").innerHTML=
+"Velocidad terminal: "+vt.toFixed(4)+" m/s"
 
 }
 
