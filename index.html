@@ -3,12 +3,12 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Laboratorio Virtual - Dinámica de Fluidos</title>
+<title>Laboratorio Virtual de Dinámica de Fluidos</title>
 
 <style>
 
 body{
-font-family:Arial, sans-serif;
+font-family:Arial;
 margin:0;
 background:#eef2f7;
 }
@@ -32,6 +32,11 @@ h2{
 color:#1e3799;
 }
 
+input{
+margin:5px;
+padding:5px;
+}
+
 button{
 background:#1e3799;
 color:white;
@@ -41,11 +46,6 @@ border-radius:5px;
 cursor:pointer;
 }
 
-input{
-padding:5px;
-margin:5px;
-}
-
 .slider{
 width:250px;
 }
@@ -53,30 +53,16 @@ width:250px;
 .result{
 font-weight:bold;
 color:#b71540;
-margin-top:10px;
-}
-
-table{
-border-collapse:collapse;
-width:100%;
-margin-top:10px;
-}
-
-table, th, td{
-border:1px solid #ccc;
-padding:8px;
-text-align:center;
 }
 
 </style>
 </head>
 
-
 <body>
 
 <header>
 <h1>Laboratorio Virtual de Dinámica de Fluidos</h1>
-<p>Simulación interactiva de Reynolds, Poiseuille y Stokes</p>
+<p>Simulación interactiva de conceptos fundamentales de mecánica de fluidos</p>
 </header>
 
 
@@ -85,51 +71,14 @@ text-align:center;
 <h2>Introducción</h2>
 
 <p>
-Este recurso académico presenta algunos conceptos fundamentales de la dinámica de fluidos.
-El objetivo es analizar cómo variables físicas como el radio de un tubo o el tamaño de una partícula
-influyen en fenómenos como el caudal de un fluido o la velocidad de sedimentación.
+La dinámica de fluidos estudia el comportamiento de los líquidos y gases cuando se encuentran en movimiento. 
+Este campo de la física es fundamental en áreas como la ingeniería, la hidráulica, la aerodinámica y los procesos industriales.
 </p>
 
-</section>
-
-
-<section>
-
-<h2>Viscosidad</h2>
-
-<p>La viscosidad mide la resistencia de un fluido al movimiento.</p>
-
-<p><b>Ecuación:</b></p>
-
-<p>τ = μ (du/dy)</p>
-
-<table>
-
-<tr>
-<th>Variable</th>
-<th>Significado</th>
-<th>Unidad</th>
-</tr>
-
-<tr>
-<td>τ</td>
-<td>Esfuerzo cortante</td>
-<td>Pa</td>
-</tr>
-
-<tr>
-<td>μ</td>
-<td>Viscosidad dinámica</td>
-<td>Pa·s</td>
-</tr>
-
-<tr>
-<td>du/dy</td>
-<td>Gradiente de velocidad</td>
-<td>s⁻¹</td>
-</tr>
-
-</table>
+<p>
+A través de este laboratorio virtual se busca analizar algunos conceptos fundamentales como el número de Reynolds,
+la ley de Poiseuille y la ley de Stokes, los cuales permiten comprender el comportamiento del flujo en diferentes condiciones.
+</p>
 
 </section>
 
@@ -138,15 +87,20 @@ influyen en fenómenos como el caudal de un fluido o la velocidad de sedimentaci
 
 <h2>Número de Reynolds</h2>
 
+<p>El número de Reynolds permite determinar el tipo de flujo dentro de un sistema.</p>
+
+<p><b>Fórmula:</b></p>
+
 <p>Re = ρVD / μ</p>
 
 <ul>
-<li>Re &lt; 2000 → Flujo laminar</li>
-<li>2000 – 4000 → Transición</li>
-<li>Re &gt; 4000 → Turbulento</li>
+<li>ρ → densidad del fluido</li>
+<li>V → velocidad del fluido</li>
+<li>D → diámetro del conducto</li>
+<li>μ → viscosidad dinámica</li>
 </ul>
 
-<h3>Calculadora interactiva</h3>
+<h3>Calculadora</h3>
 
 ρ <input id="rho" type="number">
 
@@ -156,9 +110,9 @@ D <input id="diam" type="number">
 
 μ <input id="vis" type="number">
 
-<br>
+<br><br>
 
-<button onclick="calcRe()">Calcular</button>
+<button onclick="calcRe()">Calcular Reynolds</button>
 
 <p id="resultadoRe" class="result"></p>
 
@@ -169,20 +123,24 @@ D <input id="diam" type="number">
 
 <h2>Ley de Poiseuille</h2>
 
+<p>
+La ley de Poiseuille describe el flujo laminar de un fluido viscoso dentro de un tubo cilíndrico.
+Esta ley demuestra que el caudal depende fuertemente del radio del tubo, específicamente de la cuarta potencia.
+</p>
+
+<p><b>Fórmula:</b></p>
+
 <p>Q = (πR⁴ΔP) / (8μL)</p>
 
 <p><b>Radio del tubo</b></p>
 
-<input
-type="range"
-id="radio"
-class="slider"
+<input type="range"
 min="0.005"
 max="0.02"
 step="0.001"
 value="0.005"
-oninput="actualizarPoiseuille(this.value)"
->
+class="slider"
+oninput="actualizarPoiseuille(this.value)">
 
 <p>Radio seleccionado: <span id="valorRadio">0.005</span> m</p>
 
@@ -195,20 +153,23 @@ oninput="actualizarPoiseuille(this.value)"
 
 <h2>Ley de Stokes</h2>
 
+<p>
+La ley de Stokes describe la velocidad terminal de una partícula esférica que cae en un fluido viscoso.
+</p>
+
+<p><b>Fórmula:</b></p>
+
 <p>Vt = (2 g r² (ρp − ρf)) / (9 μ)</p>
 
 <p><b>Radio de la partícula</b></p>
 
-<input
-type="range"
-id="r"
-class="slider"
+<input type="range"
 min="0.00001"
 max="0.0001"
 step="0.00001"
 value="0.00001"
-oninput="actualizarStokes(this.value)"
->
+class="slider"
+oninput="actualizarStokes(this.value)">
 
 <p>Radio seleccionado: <span id="valorParticula">0.00001</span> m</p>
 
@@ -221,24 +182,102 @@ oninput="actualizarStokes(this.value)"
 
 <h2>Ejercicios Resueltos</h2>
 
-<h3>Ejercicio 1 (Reynolds)</h3>
+<h3>Ejercicio 1: Número de Reynolds</h3>
+
+<p>
+Se tiene un fluido con las siguientes propiedades:
+</p>
 
 <ul>
-<li>ρ = 900 kg/m³</li>
-<li>V = 1.5 m/s</li>
-<li>D = 0.02 m</li>
-<li>μ = 0.05 Pa·s</li>
+<li>Densidad (ρ) = 900 kg/m³</li>
+<li>Velocidad (V) = 1.5 m/s</li>
+<li>Diámetro del tubo (D) = 0.02 m</li>
+<li>Viscosidad (μ) = 0.05 Pa·s</li>
 </ul>
 
-<p class="result">Re = 540 → Flujo laminar</p>
+<p>
+Sustituyendo en la ecuación:
+</p>
 
-<h3>Ejercicio 2 (Poiseuille)</h3>
+<p>Re = (900 × 1.5 × 0.02) / 0.05</p>
+
+<p>
+Re = 27 / 0.05
+</p>
+
+<p>
+Re = 540
+</p>
+
+<p>
+Como el valor es menor que 2000, el flujo se clasifica como <b>flujo laminar</b>.
+</p>
+
+
+<h3>Ejercicio 2: Ley de Poiseuille</h3>
+
+<p>
+Un fluido viscoso fluye a través de un tubo de radio 0.01 m y longitud 50 m.
+La viscosidad del fluido es 0.2 Pa·s y el caudal observado es 0.002 m³/s.
+</p>
+
+<p>
+Usando la ecuación:
+</p>
+
+<p>Q = (πR⁴ΔP) / (8μL)</p>
+
+<p>
+Se despeja ΔP:
+</p>
+
+<p>ΔP = (8 μ L Q) / (π R⁴)</p>
+
+<p>
+Sustituyendo valores:
+</p>
+
+<p>
+ΔP = (8 × 0.2 × 50 × 0.002) / (π × 0.01⁴)
+</p>
+
+<p>
+El resultado aproximado es:
+</p>
 
 <p class="result">ΔP ≈ 2.5 × 10⁶ Pa</p>
 
-<h3>Ejercicio 3 (Stokes)</h3>
 
-<p class="result">Velocidad terminal ≈ 0.0022 m/s</p>
+<h3>Ejercicio 3: Ley de Stokes</h3>
+
+<p>
+Una partícula de radio 0.0005 m cae en agua.
+</p>
+
+<ul>
+<li>ρp = 2650 kg/m³</li>
+<li>ρf = 1000 kg/m³</li>
+<li>μ = 0.001 Pa·s</li>
+<li>g = 9.81 m/s²</li>
+</ul>
+
+<p>Usando la ecuación:</p>
+
+<p>Vt = (2 g r² (ρp − ρf)) / (9 μ)</p>
+
+<p>
+Sustituyendo valores:
+</p>
+
+<p>
+Vt = (2 × 9.81 × (0.0005)² × (2650 − 1000)) / (9 × 0.001)
+</p>
+
+<p>
+El resultado aproximado es:
+</p>
+
+<p class="result">Vt ≈ 0.0022 m/s</p>
 
 </section>
 
@@ -248,14 +287,14 @@ oninput="actualizarStokes(this.value)"
 <h2>Uso de las barras deslizantes</h2>
 
 <p>
-Las barras deslizantes permiten modificar parámetros físicos del sistema de forma interactiva.
-Al mover la barra se cambia el valor de una variable, como el radio del tubo o el tamaño de una partícula,
-y el programa recalcula automáticamente el resultado utilizando las ecuaciones de la dinámica de fluidos.
+Las barras deslizantes permiten modificar variables físicas de manera interactiva.
+Cuando el usuario mueve la barra, el programa toma el valor seleccionado
+y recalcula automáticamente el resultado utilizando las ecuaciones físicas correspondientes.
 </p>
 
 <p>
-Este tipo de herramientas permite explorar cómo influyen las variables físicas en los fenómenos del flujo
-sin necesidad de realizar un experimento real en laboratorio.
+Esto permite analizar cómo pequeñas variaciones en parámetros como el radio del tubo
+o el tamaño de una partícula pueden producir cambios significativos en el comportamiento del fluido.
 </p>
 
 </section>
@@ -283,7 +322,6 @@ document.getElementById("resultadoRe").innerHTML="Re = "+Re.toFixed(2)+" → "+t
 
 }
 
-
 function actualizarPoiseuille(valor){
 
 document.getElementById("valorRadio").innerHTML=valor
@@ -300,7 +338,6 @@ document.getElementById("resultadoQ").innerHTML=
 "Caudal calculado: "+Q.toFixed(6)+" m³/s"
 
 }
-
 
 function actualizarStokes(valor){
 
