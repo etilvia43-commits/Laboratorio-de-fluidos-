@@ -118,35 +118,40 @@ D <input id="diam" type="number">
 
 </section>
 
-
 <section>
 
 <h2>Ley de Poiseuille</h2>
 
 <p>
 La ley de Poiseuille describe el flujo laminar de un fluido viscoso dentro de un tubo cilíndrico.
-Esta ley demuestra que el caudal depende fuertemente del radio del tubo, específicamente de la cuarta potencia.
 </p>
 
 <p><b>Fórmula:</b></p>
 
 <p>Q = (πR⁴ΔP) / (8μL)</p>
 
-<p><b>Radio del tubo</b></p>
+<h3>Calculadora</h3>
 
-<input type="range"
-min="0.005"
-max="0.02"
-step="0.001"
-value="0.005"
-class="slider"
-oninput="actualizarPoiseuille(this.value)">
+Radio del tubo (R)
+<input id="radioP" type="number">
 
-<p>Radio seleccionado: <span id="valorRadio">0.005</span> m</p>
+Diferencia de presión (ΔP)
+<input id="presion" type="number">
 
-<p id="resultadoQ" class="result"></p>
+Viscosidad (μ)
+<input id="viscosidadP" type="number">
+
+Longitud del tubo (L)
+<input id="longitud" type="number">
+
+<br><br>
+
+<button onclick="calcPoiseuille()">Calcular Caudal</button>
+
+<p id="resultadoPoiseuille" class="result"></p>
 
 </section>
+
 
 
 <section>
@@ -154,26 +159,32 @@ oninput="actualizarPoiseuille(this.value)">
 <h2>Ley de Stokes</h2>
 
 <p>
-La ley de Stokes describe la velocidad terminal de una partícula esférica que cae en un fluido viscoso.
+La ley de Stokes describe la velocidad terminal de una partícula esférica que cae dentro de un fluido viscoso.
 </p>
 
 <p><b>Fórmula:</b></p>
 
 <p>Vt = (2 g r² (ρp − ρf)) / (9 μ)</p>
 
-<p><b>Radio de la partícula</b></p>
+<h3>Calculadora</h3>
 
-<input type="range"
-min="0.00001"
-max="0.0001"
-step="0.00001"
-value="0.00001"
-class="slider"
-oninput="actualizarStokes(this.value)">
+Radio de la partícula (r)
+<input id="radioS" type="number">
 
-<p>Radio seleccionado: <span id="valorParticula">0.00001</span> m</p>
+Densidad de la partícula (ρp)
+<input id="rhoP" type="number">
 
-<p id="resultadoV" class="result"></p>
+Densidad del fluido (ρf)
+<input id="rhoF" type="number">
+
+Viscosidad del fluido (μ)
+<input id="viscosidadS" type="number">
+
+<br><br>
+
+<button onclick="calcStokes()">Calcular velocidad</button>
+
+<p id="resultadoStokes" class="result"></p>
 
 </section>
 
@@ -318,42 +329,42 @@ if(Re<2000) tipo="Flujo laminar"
 else if(Re<4000) tipo="Transición"
 else tipo="Flujo turbulento"
 
-document.getElementById("resultadoRe").innerHTML="Re = "+Re.toFixed(2)+" → "+tipo
+document.getElementById("resultadoRe").innerHTML=
+"Re = "+Re.toFixed(2)+" → "+tipo
 
 }
 
-function actualizarPoiseuille(valor){
 
-document.getElementById("valorRadio").innerHTML=valor
 
-let r=parseFloat(valor)
+function calcPoiseuille(){
 
-let mu=0.2
-let L=50
-let dp=1000
+let R=parseFloat(document.getElementById("radioP").value)
+let dp=parseFloat(document.getElementById("presion").value)
+let mu=parseFloat(document.getElementById("viscosidadP").value)
+let L=parseFloat(document.getElementById("longitud").value)
 
-let Q=(Math.PI*Math.pow(r,4)*dp)/(8*mu*L)
+let Q=(Math.PI*Math.pow(R,4)*dp)/(8*mu*L)
 
-document.getElementById("resultadoQ").innerHTML=
-"Caudal calculado: "+Q.toFixed(6)+" m³/s"
+document.getElementById("resultadoPoiseuille").innerHTML=
+"Caudal Q = "+Q.toFixed(6)+" m³/s"
 
 }
 
-function actualizarStokes(valor){
 
-document.getElementById("valorParticula").innerHTML=valor
 
-let r=parseFloat(valor)
+function calcStokes(){
+
+let r=parseFloat(document.getElementById("radioS").value)
+let rhoP=parseFloat(document.getElementById("rhoP").value)
+let rhoF=parseFloat(document.getElementById("rhoF").value)
+let mu=parseFloat(document.getElementById("viscosidadS").value)
 
 let g=9.81
-let rhoP=2650
-let rhoF=1000
-let mu=0.001
 
 let vt=(2*g*r*r*(rhoP-rhoF))/(9*mu)
 
-document.getElementById("resultadoV").innerHTML=
-"Velocidad terminal: "+vt.toFixed(4)+" m/s"
+document.getElementById("resultadoStokes").innerHTML=
+"Velocidad terminal Vt = "+vt.toFixed(6)+" m/s"
 
 }
 
